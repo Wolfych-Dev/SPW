@@ -29,7 +29,7 @@
   <style>
     @font-face {
       font-family: 'Minecraft Regular';
-      src: url('https://fontmeme.com/fonts/minecraft-font/') format('woff2'); /* Замените на реальный URL шрифта */
+      src: url('https://fontmeme.com/fonts/minecraft-font/') format('woff2');
     }
     html { scroll-behavior: smooth; }
     .glass {
@@ -40,89 +40,72 @@
     .icon-btn {
       @apply hover:text-primary transition;
     }
-    /* Адаптивные шрифты */
-    h1, h2, h3 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-    }
-    p {
-      font-size: clamp(0.875rem, 2.5vw, 1rem);
-    }
-    /* Уменьшение отступов на маленьких экранах */
-    @media (max-width: 640px) {
-      .nav-icons {
-        gap: 1rem;
-      }
-      .header-content {
-        padding: 1rem;
-      }
-    }
   </style>
 </head>
 <body class="bg-dark text-white font-minecraft">
 
   <!-- Навбар -->
-  <nav class="fixed top-0 w-full glass z-50 shadow-md" aria-label="Главное меню">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-      <!-- Лого -->
-      <a href="#top" class="flex items-center space-x-2" aria-label="Главная страница">
-        <img src="https://i.ibb.co/6Jw6m6vh/20250308-225603xx.png" alt="Minecraft Logo" class="h-12 sm:h-7 md:h-8">
+  <nav class="fixed top-0 w-full glass z-50 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="https://i.ibb.co/6Jw6m6vh/20250308-225603xx.png" alt="Minecraft Logo" class="h-12 sm:h-12">
+        <span class="hidden sm:inline-block text-lg font-bold">СПВ Earth</span>
       </a>
-      <!-- Иконки -->
-      <div class="flex items-center nav-icons space-x-4 sm:space-x-6 text-gray-300">
-        <a href="#about" class="icon-btn" title="О сервере" aria-label="О сервере"><i data-lucide="info"></i></a>
-        <a href="#features" class="icon-btn" title="Особенности" aria-label="Особенности"><i data-lucide="layers"></i></a>
-        <a href="#join" class="icon-btn" title="IP" aria-label="Присоединиться"><i data-lucide="link"></i></a>
+      <div class="flex items-center space-x-6 text-gray-300 text-xl">
+        <a href="#about" class="icon-btn" title="О сервере"><i data-lucide="info"></i></a>
+        <a href="#features" class="icon-btn" title="Особенности"><i data-lucide="layers"></i></a>
+        <a href="#join" class="icon-btn" title="IP"><i data-lucide="link"></i></a>
       </div>
     </div>
   </nav>
 
   <!-- Главный экран -->
   <header id="top" class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 bg-[url('https://www.minecraft.net/content/dam/games/minecraft/key-art/Minecraft-xbox-one-hero.jpg')] bg-cover bg-center relative bg-no-repeat">
-    <div class="glass p-6 sm:p-8 rounded-xl shadow-xl max-w-2xl mx-auto header-content">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">Присоединяйся</h1>
-      <p class="text-gray-300">Ваниль и душевная атмосфера на нашем сервере!</p>
-      <a href="#join" class="mt-6 inline-block bg-primary text-black font-bold px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-glow hover:scale-105 transition" aria-label="Начать играть">Начать играть</a>
+    <div class="glass p-8 rounded-xl shadow-xl max-w-2xl mx-auto">
+      <h1 class="text-4xl font-bold mb-4">Присоединяйся</h1>
+      <p class="text-gray-300">Моды и душевная атмосфера на нашем сервере!</p>
+      <a href="#join" class="mt-6 inline-block bg-primary text-black font-bold px-6 py-3 rounded-lg shadow-glow hover:scale-105 transition">Начать играть</a>
     </div>
   </header>
 
   <!-- О сервере -->
-  <section id="about" class="py-16 sm:py-24 px-4 bg-dark">
+  <section id="about" class="py-16 px-4 bg-dark">
     <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold text-primary mb-6">О сервере</h2>
-      <div class="glass p-6 rounded-xl text-gray-300">
-        СПВ Earth — это уникальное сочетание ванильной атмосферы лампового комьюнити и любви к строительству и выживанию. Играем честно, без доната и лагов.
+      <h2 class="text-3xl font-bold text-primary mb-6">О сервере</h2>
+      <div class="glass p-6 rounded-xl text-gray-300 space-y-4">
+        <p>СПВ Earth — это уникальное сочетание атмосферы лампового комьюнити и любви к строительству и выживанию.Все честно, без доната и лагов.</p>
       </div>
     </div>
   </section>
 
   <!-- Особенности -->
-  <section id="features" class="py-16 sm:py-24 px-4 bg-dark">
+  <section id="features" class="py-16 px-4 bg-dark">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-primary text-center mb-8 sm:mb-12">Особенности</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
-        <div class="glass p-6 rounded-xl transition hover:shadow-glow">
-          <h3 class="text-lg sm:text-xl font-semibold mb-2">⚔ Содружества</h3>
-          <p class="text-gray-400">Постройка общих баз содружества, а также общего города или поселения</p>
+      <h2 class="text-3xl font-bold text-primary text-center mb-12">Особенности</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
+          <h3 class="text-xl font-semibold mb-2">⚔ Содружества</h3>
+          <p class="text-gray-400">Постройка общих баз содружества, а также общего города или поселения.</p>
         </div>
-        <div class="glass p-6 rounded-xl transition hover:shadow-glow">
-          <h3 class="text-lg sm:text-xl font-semibold mb-2">🔧 Плагины и ресурспаки</h3>
-          <p class="text-gray-400">Плагины и ресурспаки без перегруза. Всё ради баланса и стабильности.</p>
+        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
+          <h3 class="text-xl font-semibold mb-2">🔧 Ресурспаки</h3>
+          <p class="text-gray-400">Всё ради баланса и стабильности, без перегруза.</p>
         </div>
-        <div class="glass p-6 rounded-xl transition hover:shadow-glow">
-          <h3 class="text-lg sm:text-xl font-semibold mb-2">🐘 Огромные проекты</h3>
-          <p class="text-gray-400">Города,Села Магистрали, Метро , Железные дороги небоскребы, все огромные проекты реализуются в нашем добром и ламповом сервере.</p>
+        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
+          <h3 class="text-xl font-semibold mb-2">📦 Моды</h3>
+          <p class="text-gray-400">Тщательно подобранные моды, которые улучшают игровой процесс, но не перегружают игру.</p>
         </div>
-        <div class="glass p-6 rounded-xl transition hover:shadow-glow">
-          <h3 class="text-lg sm:text-xl font-semibold mb-2">🎉 Ивенты</h3>
-          <p class="text-gray-400">На сервере бывают ивенты, походы по серверу и совместное исследования мира</p>
+        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
+          <h3 class="text-xl font-semibold mb-2">🎉 Ивенты</h3>
+          <p class="text-gray-400">На сервере проходят ивенты, походы и совместные исследования мира.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Мониторинг -->
-  <section class="py-16 sm:py-24 px-4 bg-dark text-center">
-    <h2 class="text-2xl sm:text-3xl font-bold text-primary mb-6">Мониторинг сервера</h2>
+  <section class="py-16 px-4 bg-dark text-center">
+    <h2 class="text-3xl font-bold text-primary mb-6">Мониторинг сервера</h2>
     <div class="glass p-6 rounded-xl inline-block text-gray-300" id="statusBox">
       <p class="mb-2">Статус: <span id="status">Проверка...</span></p>
       <p>Онлайн: <span id="players">-</span></p>
@@ -131,13 +114,19 @@
   </section>
 
   <!-- Присоединиться -->
-  <section id="join" class="py-16 sm:py-24 px-4 bg-dark text-center">
-    <div class="glass p-8 sm:p-10 rounded-xl inline-block w-full sm:w-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold text-primary mb-4">IP Сервера</h2>
-      <p class="text-base sm:text-lg text-gray-300 mb-1">IP:</p>
-      <p class="text-xl sm:text-2xl font-mono text-white mb-4" id="ip">mc1294290.fmcs.cloud</p>
-      <button onclick="copyIP()" class="bg-primary text-black font-bold px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:scale-105 transition shadow-glow" aria-label="Скопировать IP">
+  <section id="join" class="py-16 px-4 bg-dark text-center space-y-6">
+    <div class="glass p-8 rounded-xl inline-block w-full sm:w-auto">
+      <h2 class="text-3xl font-bold text-primary mb-4">IP Сервера</h2>
+      <p class="text-lg text-gray-300 mb-1">IP:</p>
+      <p class="text-2xl font-mono text-white mb-4" id="ip">mc1294290.fmcs.cloud</p>
+      <button onclick="copyIP()" class="bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow">
         Скопировать IP
+      </button>
+    </div>
+
+    <div>
+      <button onclick="downloadPack()" class="bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow flex items-center gap-2 mx-auto">
+        <i data-lucide="download"></i> Скачать сборку
       </button>
     </div>
   </section>
@@ -151,7 +140,7 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script>lucide.createIcons();</script>
 
-  <!-- Мониторинг -->
+  <!-- Скрипты -->
   <script>
     async function checkServer() {
       const ip = "mc1294290.fmcs.cloud";
@@ -178,10 +167,13 @@
       }
     }
 
+    function downloadPack() {
+      window.open("https://drive.google.com/file/d/1FYjOLnm_T_M3zeYaDdlRcpvp9sWfPStp/view?usp=drivesdk", "_blank"); // замени на ссылку на сборку
+    }
+
     checkServer();
     setInterval(checkServer, 30000);
   </script>
 </body>
 </html>
-    
                  
