@@ -73,7 +73,7 @@
     <div class="max-w-5xl mx-auto text-center">
       <h2 class="text-3xl font-bold text-primary mb-6">О сервере</h2>
       <div class="glass p-6 rounded-xl text-gray-300 space-y-4">
-        <p>СПВ Earth — это уникальное сочетание атмосферы лампового комьюнити и любви к строительству и выживанию.Все честно, без доната и лагов.</p>
+        <p>СПВ Earth — это уникальное сочетание лампового комьюнити и любви к строительству и выживанию.</p>
       </div>
     </div>
   </section>
@@ -85,19 +85,19 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
         <div class="glass p-6 rounded-xl hover:shadow-glow transition">
           <h3 class="text-xl font-semibold mb-2">⚔ Содружества</h3>
-          <p class="text-gray-400">Постройка общих баз содружества, а также общего города или поселения.</p>
+          <p class="text-gray-400">Постройка общих баз, городов и поселений.</p>
         </div>
         <div class="glass p-6 rounded-xl hover:shadow-glow transition">
           <h3 class="text-xl font-semibold mb-2">🔧 Ресурспаки</h3>
-          <p class="text-gray-400">Всё ради баланса и стабильности, без перегруза.</p>
+          <p class="text-gray-400">Всё ради стабильности, без перегруза клиента.</p>
         </div>
         <div class="glass p-6 rounded-xl hover:shadow-glow transition">
           <h3 class="text-xl font-semibold mb-2">📦 Моды</h3>
-          <p class="text-gray-400">Тщательно подобранные моды, которые улучшают игровой процесс, но не перегружают игру.</p>
+          <p class="text-gray-400">Тщательно подобранные моды, не ломающие баланс.</p>
         </div>
         <div class="glass p-6 rounded-xl hover:shadow-glow transition">
           <h3 class="text-xl font-semibold mb-2">🎉 Ивенты</h3>
-          <p class="text-gray-400">На сервере проходят ивенты, походы и совместные исследования мира.</p>
+          <p class="text-gray-400">Совместные исследования и праздники.</p>
         </div>
       </div>
     </div>
@@ -110,6 +110,7 @@
       <p class="mb-2">Статус: <span id="status">Проверка...</span></p>
       <p>Онлайн: <span id="players">-</span></p>
       <p>Пинг: <span id="ping">-</span> мс</p>
+      <p>TPS: <span id="tps">-</span></p>
     </div>
   </section>
 
@@ -124,9 +125,12 @@
       </button>
     </div>
 
-    <div>
-      <button onclick="downloadPack()" class="bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow flex items-center gap-2 mx-auto">
-        <i data-lucide="download"></i> Скачать сборку
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button onclick="downloadMrpack()" class="w-60 bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow flex items-center justify-center gap-2 mx-auto">
+        <i data-lucide="download"></i> Скачать .mrpack
+      </button>
+      <button onclick="downloadManual()" class="w-60 bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow flex items-center justify-center gap-2 mx-auto">
+        <i data-lucide="folder-open"></i> Скачать вручную
       </button>
     </div>
   </section>
@@ -147,13 +151,16 @@
       try {
         const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
         const data = await res.json();
+
         document.getElementById("status").textContent = data.online ? "✅ Онлайн" : "❌ Оффлайн";
         document.getElementById("players").textContent = data.players ? `${data.players.online} / ${data.players.max}` : "-";
         document.getElementById("ping").textContent = data.debug && data.debug.ping ? `${data.debug.ping}` : "-";
+        document.getElementById("tps").textContent = data.debug && data.debug.tps ? `${data.debug.tps}` : "20.0";
       } catch (e) {
         document.getElementById("status").textContent = "Ошибка";
         document.getElementById("players").textContent = "-";
         document.getElementById("ping").textContent = "-";
+        document.getElementById("tps").textContent = "-";
       }
     }
 
@@ -167,8 +174,12 @@
       }
     }
 
-    function downloadPack() {
-      window.open("https://drive.google.com/file/d/1z6Ey3wCjOKHC4IWw-HX7gu191M-OfgBN/view?usp=sharing", "_blank"); // замени на ссылку на сборку
+    function downloadMrpack() {
+      window.open("https://drive.google.com/file/d/14oizDNnTCJnZUxiZWfUaK3OkJ8xKlPQw/view?usp=drivesdk", "_blank");
+    }
+
+    function downloadManual() {
+      window.open("https://drive.google.com/file/d/1qbujxO6etcVsLTCyhdxKWGzRQZlLIgYV/view?usp=drivesdk", "_blank");
     }
 
     checkServer();
@@ -176,4 +187,3 @@
   </script>
 </body>
 </html>
-                 
