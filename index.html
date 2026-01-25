@@ -1,189 +1,205 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
-  <meta name="description" content="Присоединяйтесь к нашему Minecraft-серверу с модами, ивентами" />
-  <meta name="keywords" content="Minecraft, сервер, моды, PvP, экономика, ивенты" />
-  <title>Minecraft Server</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            minecraft: ['"Minecraft Regular"', '"Segoe UI"', 'sans-serif'],
-          },
-          colors: {
-            primary: '#1ED760',
-            dark: '#0f0f0f',
-            card: '#1b1b1b'
-          },
-          boxShadow: {
-            glow: '0 0 15px #1ED760',
-          }
-        },
-      }
-    };
-  </script>
-  <style>
-    @font-face {
-      font-family: 'Minecraft Regular';
-      src: url('https://fontmeme.com/fonts/minecraft-font/') format('woff2');
-    }
-    html { scroll-behavior: smooth; }
-    .glass {
-      background: rgba(15, 15, 15, 0.6);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .icon-btn {
-      @apply hover:text-primary transition;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPW Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Montserrat, sans-serif;
+  background: linear-gradient(180deg, #050505, #0b0f1a);
+  color: white;
+  overflow-x: hidden;
+}header { position: fixed; width: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 10; }
+
+.nav { max-width: 1100px; margin: auto; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+
+.logo img { height: 42px; filter: drop-shadow(0 0 10px #00f0ff55); transition: 0.3s; }
+
+.logo img:hover { filter: drop-shadow(0 0 20px #00f0ffcc); transform: scale(1.05); }
+
+.nav a { color: #aaa; margin-left: 20px; text-decoration: none; transition: 0.2s; } .nav a:hover { color: #7cf9ff; }
+
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 20px; background: radial-gradient(circle at top, #00f0ff22, transparent 60%); }
+
+.hero h1 { font-size: 60px; font-weight: 800; text-shadow: 0 0 20px #00f0ff33; }
+
+.hero p { max-width: 600px; margin: 20px auto; color: #aaa; }
+
+.buttons { margin-top: 30px; }
+
+.btn { padding: 14px 30px; border-radius: 20px; border: none; cursor: pointer; font-weight: 600; margin: 10px; background: linear-gradient(90deg, #00f0ff, #5b7cff); color: black; box-shadow: 0 0 20px #00f0ff55; text-decoration: none; display: inline-block; }
+
+a.btn:hover { text-decoration: none; }
+
+.btn.alt { background: transparent; border: 1px solid #00f0ff55; color: #7cf9ff; text-decoration: none; }
+
+.section { max-width: 1100px; margin: auto; padding: 100px 20px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 20px; }
+
+.card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; transition: 0.3s; }
+
+.card:hover { transform: translateY(-5px); box-shadow: 0 0 30px #00f0ff22; }
+
+footer { text-align: center; padding: 40px; color: #555; }
+
+.join-wrapper { text-align: center; background: radial-gradient(circle at top, #00f0ff22, transparent 70%); padding: 60px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); }
+
+.join-title { font-size: 46px; margin-bottom: 15px; text-shadow: 0 0 20px #00f0ff55; }
+
+.join-sub { color: #aaa; max-width: 600px; margin: 0 auto 40px; }
+
+.ip-box { max-width: 520px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 15px; background: rgba(0,0,0,0.6); padding: 18px 22px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 0 30px #00f0ff22; flex-wrap: wrap; }
+
+.ip-left { display: flex; flex-direction: column; text-align: left; }
+
+.ip-label { font-size: 14px; color: #777; }
+
+.ip-value { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; color: #7cf9ff; }
+
+.copy-btn { padding: 10px 18px; border-radius: 14px; background: #00f0ff; border: none; cursor: pointer; font-weight: 600; white-space: nowrap; }
+
+.join-buttons { margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+@media (max-width: 600px) { .hero h1 { font-size: 38px; } .join-title { font-size: 34px; } .ip-box { flex-direction: column; align-items: stretch; text-align: center; } .ip-left { text-align: center; } }
+
+.logo img.active { filter: drop-shadow(0 0 25px #00f0ff); transform: scale(1.08); }
+
+/* Button animations */ .btn { position: relative; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease; }
+
+.btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 30px #00f0ff88; }
+
+.btn:active { transform: scale(0.97); }
+
+.btn::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.6s; }
+
+.btn:hover::after { left: 100%; }
+
+/* Stats */ .stats { margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; max-width: 600px; }
+
+.stat { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 25px 15px; box-shadow: 0 0 30px #00f0ff11; }
+
+.stat-value { font-size: 36px; font-weight: 800; color: #7cf9ff; text-shadow: 0 0 15px #00f0ff55; }
+
+.stat-label { margin-top: 6px; font-size: 14px; color: #777; }
+
+</style>
 </head>
-<body class="bg-dark text-white font-minecraft">
-
-  <!-- Навбар -->
-  <nav class="fixed top-0 w-full glass z-50 shadow-md">
-    <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
-      <a href="#top" class="flex items-center gap-3">
-        <img src="https://i.ibb.co/6Jw6m6vh/20250308-225603xx.png" alt="Minecraft Logo" class="h-12 sm:h-12">
-        <span class="hidden sm:inline-block text-lg font-bold">СПВ Earth</span>
-      </a>
-      <div class="flex items-center space-x-6 text-gray-300 text-xl">
-        <a href="#about" class="icon-btn" title="О сервере"><i data-lucide="info"></i></a>
-        <a href="#features" class="icon-btn" title="Особенности"><i data-lucide="layers"></i></a>
-        <a href="#join" class="icon-btn" title="IP"><i data-lucide="link"></i></a>
-      </div>
+<body><header>
+  <div class="nav">
+    <div class="logo">
+      <img src="https://i.ibb.co/6Jw6m6vh/20250308-225603xx.png" alt="Logo">
     </div>
-  </nav>
-
-  <!-- Главный экран -->
-  <header id="top" class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 bg-[url('https://www.minecraft.net/content/dam/games/minecraft/key-art/Minecraft-xbox-one-hero.jpg')] bg-cover bg-center relative bg-no-repeat">
-    <div class="glass p-8 rounded-xl shadow-xl max-w-2xl mx-auto">
-      <h1 class="text-4xl font-bold mb-4">Присоединяйся</h1>
-      <p class="text-gray-300">Моды и душевная атмосфера на нашем сервере!</p>
-      <a href="#join" class="mt-6 inline-block bg-primary text-black font-bold px-6 py-3 rounded-lg shadow-glow hover:scale-105 transition">Начать играть</a>
+    <div>
+      <a href="#about">О проекте</a>
+      <a href="#features">Фичи</a>
+      <a href="#join">Играть</a>
     </div>
-  </header>
-
-  <!-- О сервере -->
-  <section id="about" class="py-16 px-4 bg-dark">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold text-primary mb-6">О сервере</h2>
-      <div class="glass p-6 rounded-xl text-gray-300 space-y-4">
-        <p>СПВ Earth — это уникальное сочетание лампового комьюнити и любви к строительству и выживанию.</p>
-      </div>
+  </div>
+</header><section class="hero">
+  <div>
+    <h1>Мир, где рождаются легенды</h1>
+    <p>Моды, душевная атмосфера, ламповое комьюнити</p>
+    <div class="buttons">
+      <a href="#join" class="btn">Начать приключение</a>
+      <a href="https://discord.gg/ykn3FFErKw" target="_blank" class="btn alt">Присоединиться к Discord</a>
     </div>
-  </section>
+  </div>
+</section><section id="about" class="section">
+  <h2 style="font-size:40px;margin-bottom:20px;">О проекте</h2>
+  <p style="color:#aaa; max-width:800px;">SPW Earth — это уникальное сочетание лампового комьюнити, любви к строительству и выживанию.
+  Любишь строить или хочешь сам положить кирпичь в гранит истории сервера? Ты попал куда нужно :3</p>
+</section><section id="features" class="section">
+  <h2 style="font-size:40px;margin-bottom:40px;">Особенности мира</h2>
+  <div class="cards">
+    <div class="card">🌌 Уникальная атмосфера и лор</div>
+    <div class="card">⚙️ Всё ради стабильности, без перегруза клиента</div>
+    <div class="card">🗽 Свобода строительства, постройка общих баз, городов и поселений.</div>
+    <div class="card">✨ Тщательно подобранные моды, не ломающие баланс.</div>
+  </div>
+</section><section id="join" class="section">
+  <div class="join-wrapper">
+    <h2 class="join-title">Подключайся к миру</h2>
+    <p class="join-sub">Один шаг — и ты внутри нового мира. Введи IP сервера в Minecraft или нажми кнопку ниже.</p><div class="ip-box">
+  <div class="ip-left">
+    <span class="ip-label">IP сервера</span>
+    <span id="ip" class="ip-value">45.88.174.164</span>
+  </div>
+  <button class="copy-btn" onclick="navigator.clipboard.writeText('play.spw-project.net')">Копировать</button>
+</div>
 
-  <!-- Особенности -->
-  <section id="features" class="py-16 px-4 bg-dark">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl font-bold text-primary text-center mb-12">Особенности</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
-          <h3 class="text-xl font-semibold mb-2">⚔ Содружества</h3>
-          <p class="text-gray-400">Постройка общих баз, городов и поселений.</p>
-        </div>
-        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
-          <h3 class="text-xl font-semibold mb-2">🔧 Ресурспаки</h3>
-          <p class="text-gray-400">Всё ради стабильности, без перегруза клиента.</p>
-        </div>
-        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
-          <h3 class="text-xl font-semibold mb-2">📦 Моды</h3>
-          <p class="text-gray-400">Тщательно подобранные моды, не ломающие баланс.</p>
-        </div>
-        <div class="glass p-6 rounded-xl hover:shadow-glow transition">
-          <h3 class="text-xl font-semibold mb-2">🎉 Ивенты</h3>
-          <p class="text-gray-400">Совместные исследования и праздники.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="join-buttons">
+   <a href="https://modrinth.com/modpack/spw-modpack/" class="btn">Скачать сборку</a>
+  <a href="https://discord.gg/ykn3FFErKw" target="_blank" class="btn alt">Наш Discord</a>
+</div>
 
-  <!-- Мониторинг -->
-  <section class="py-16 px-4 bg-dark text-center">
-    <h2 class="text-3xl font-bold text-primary mb-6">Мониторинг сервера</h2>
-    <div class="glass p-6 rounded-xl inline-block text-gray-300" id="statusBox">
-      <p class="mb-2">Статус: <span id="status">Проверка...</span></p>
-      <p>Онлайн: <span id="players">-</span></p>
-      <p>Пинг: <span id="ping">-</span> мс</p>
-      <p>TPS: <span id="tps">-</span></p>
-    </div>
-  </section>
+<div class="stats">
+  <div class="stat">
+    <div id="players" class="stat-value">--</div>
+    <div class="stat-label">Игроков онлайн</div>
+  </div>
+  <div class="stat">
+    <div id="tps" class="stat-value">--</div>
+    <div class="stat-label">TPS сервера</div>
+  </div>
+  <div class="stat">
+    <div id="ping" class="stat-value">--</div>
+    <div class="stat-label">Пинг (мс)</div>
+  </div>
+</div>
 
-  <!-- Присоединиться -->
-  <section id="join" class="py-16 px-4 bg-dark text-center space-y-6">
-    <div class="glass p-8 rounded-xl inline-block w-full sm:w-auto">
-      <h2 class="text-3xl font-bold text-primary mb-4">IP Сервера</h2>
-      <p class="text-lg text-gray-300 mb-1">IP:</p>
-      <p class="text-2xl font-mono text-white mb-4" id="ip">mc1294290.fmcs.cloud</p>
-      <button onclick="copyIP()" class="bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow">
-        Скопировать IP
-      </button>
-    </div>
+  </div>
+</section><footer>
+  © 2026 SPW Project - сделано SPW::TEAM
+</footer><script>
+const logo = document.querySelector('.logo img');
+if (logo) {
+  logo.addEventListener('click', () => {
+    logo.classList.add('active');
+    setTimeout(() => logo.classList.remove('active'), 600);
+  });
+}
 
-    <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <button onclick="downloadMrpack()" class="w-60 bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow flex items-center justify-center gap-2 mx-auto">
-        <i data-lucide="download"></i> Скачать .mrpack
-      </button>
-      <button onclick="downloadManual()" class="w-60 bg-primary text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition shadow-glow flex items-center justify-center gap-2 mx-auto">
-        <i data-lucide="folder-open"></i> Скачать вручную
-      </button>
-    </div>
-  </section>
 
-  <!-- Футер -->
-  <footer class="bg-black py-6 text-center text-gray-500 text-xs border-t border-gray-700">
-    © 2025 СПВ Earth — Все права защищены. WolfGamesDev™
-  </footer>
+// Real stats via public API (players + ping). TPS requires a plugin/API on your server.
+const SERVER = "45.88.174.164";
 
-  <!-- Иконки -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <script>lucide.createIcons();</script>
+async function updateStats() {
+  const playersEl = document.getElementById('players');
+  const tpsEl = document.getElementById('tps');
+  const pingEl = document.getElementById('ping');
 
-  <!-- Скрипты -->
-  <script>
-    async function checkServer() {
-      const ip = "mc1294290.fmcs.cloud";
-      try {
-        const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-        const data = await res.json();
+  if (!playersEl || !tpsEl || !pingEl) return;
 
-        document.getElementById("status").textContent = data.online ? "✅ Онлайн" : "❌ Оффлайн";
-        document.getElementById("players").textContent = data.players ? `${data.players.online} / ${data.players.max}` : "-";
-        document.getElementById("ping").textContent = data.debug && data.debug.ping ? `${data.debug.ping}` : "-";
-        document.getElementById("tps").textContent = data.debug && data.debug.tps ? `${data.debug.tps}` : "20.0";
-      } catch (e) {
-        document.getElementById("status").textContent = "Ошибка";
-        document.getElementById("players").textContent = "-";
-        document.getElementById("ping").textContent = "-";
-        document.getElementById("tps").textContent = "-";
-      }
+  try {
+    const res = await fetch(`https://api.mcsrvstat.us/2/${SERVER}`);
+    const data = await res.json();
+
+    if (!data || data.online === false) {
+      playersEl.textContent = "0";
+      pingEl.textContent = "—";
+      tpsEl.textContent = "—";
+      return;
     }
 
-    async function copyIP() {
-      const ip = document.getElementById("ip").textContent;
-      try {
-        await navigator.clipboard.writeText(ip);
-        alert("IP скопирован!");
-      } catch (e) {
-        alert("Ошибка копирования. Попробуйте вручную: " + ip);
-      }
-    }
+    playersEl.textContent = data.players?.online ?? "0";
+    pingEl.textContent = data.debug?.ping ?? "—";
 
-    function downloadMrpack() {
-      window.open("https://drive.google.com/file/d/14oizDNnTCJnZUxiZWfUaK3OkJ8xKlPQw/view?usp=drivesdk", "_blank");
-    }
+    // TPS is not available via public ping APIs.
+    // If you install Spark plugin, you can expose TPS via its endpoint and replace this line.
+    tpsEl.textContent = "—";
 
-    function downloadManual() {
-      window.open("https://drive.google.com/file/d/1qbujxO6etcVsLTCyhdxKWGzRQZlLIgYV/view?usp=drivesdk", "_blank");
-    }
+  } catch (e) {
+    playersEl.textContent = "—";
+    pingEl.textContent = "—";
+    tpsEl.textContent = "—";
+  }
+}
 
-    checkServer();
-    setInterval(checkServer, 30000);
-  </script>
-</body>
+updateStats();
+setInterval(updateStats, 10000);
+
+</script></body>
 </html>
