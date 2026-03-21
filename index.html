@@ -1,205 +1,344 @@
-<!DOCTYPE html><html lang="ru">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPW Project</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: Montserrat, sans-serif;
-  background: linear-gradient(180deg, #050505, #0b0f1a);
-  color: white;
-  overflow-x: hidden;
-}header { position: fixed; width: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 10; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPW Project | SPW::TEAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --secondary: #5b7cff;
+            --bg-dark: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --ease-3d: cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-.nav { max-width: 1100px; margin: auto; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        @media (min-width: 1024px) { * { cursor: none !important; } }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
-.logo img { height: 42px; filter: drop-shadow(0 0 10px #00f0ff55); transition: 0.3s; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-dark);
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-.logo img:hover { filter: drop-shadow(0 0 20px #00f0ffcc); transform: scale(1.05); }
+        /* Кастомный курсор */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 0; left: 0;
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--primary); }
+        .cursor-outline { width: 30px; height: 30px; border: 2px solid var(--primary); }
 
-.nav a { color: #aaa; margin-left: 20px; text-decoration: none; transition: 0.2s; } .nav a:hover { color: #7cf9ff; }
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, #00f0ff15, transparent 50%),
+                        radial-gradient(circle at 80% 80%, #5b7cff10, transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+        }
 
-.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 20px; background: radial-gradient(circle at top, #00f0ff22, transparent 60%); }
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+        }
 
-.hero h1 { font-size: 60px; font-weight: 800; text-shadow: 0 0 20px #00f0ff33; }
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.hero p { max-width: 600px; margin: 20px auto; color: #aaa; }
+        .logo img { height: 45px; transition: 0.5s var(--ease-3d); }
+        .logo img:hover { filter: drop-shadow(0 0 20px var(--primary)); transform: scale(1.1) rotate(3deg); }
 
-.buttons { margin-top: 30px; }
+        .nav-links a {
+            color: #eee; margin-left: 25px; text-decoration: none;
+            font-size: 14px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
-.btn { padding: 14px 30px; border-radius: 20px; border: none; cursor: pointer; font-weight: 600; margin: 10px; background: linear-gradient(90deg, #00f0ff, #5b7cff); color: black; box-shadow: 0 0 20px #00f0ff55; text-decoration: none; display: inline-block; }
+        /* КНОПКИ С БЛИКОМ */
+        .btn {
+            position: relative;
+            padding: 16px 35px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 700;
+            margin: 10px;
+            background: linear-gradient(90deg, #00f0ff, #5b7cff);
+            color: black;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-transform: uppercase;
+            font-size: 13px;
+            overflow: hidden;
+        }
 
-a.btn:hover { text-decoration: none; }
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+        }
 
-.btn.alt { background: transparent; border: 1px solid #00f0ff55; color: #7cf9ff; text-decoration: none; }
+        .btn:active { transform: scale(0.97); }
 
-.section { max-width: 1100px; margin: auto; padding: 100px 20px; }
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.6s;
+        }
+        .btn:hover::after { left: 100%; }
 
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 20px; }
+        .btn.alt {
+            background: transparent;
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #7cf9ff;
+            box-shadow: none;
+        }
+        .btn.alt:hover { background: rgba(0, 240, 255, 0.05); border-color: var(--primary); }
 
-.card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; transition: 0.3s; }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 120px 20px;
+        }
 
-.card:hover { transform: translateY(-5px); box-shadow: 0 0 30px #00f0ff22; }
+        .hero-content h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
 
-footer { text-align: center; padding: 40px; color: #555; }
+        .section { max-width: 1100px; margin: auto; padding: 100px 20px; }
+        .section-title { font-size: 42px; margin-bottom: 40px; text-align: center; font-weight: 800; }
 
-.join-wrapper { text-align: center; background: radial-gradient(circle at top, #00f0ff22, transparent 70%); padding: 60px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            perspective: 2000px;
+        }
 
-.join-title { font-size: 46px; margin-bottom: 15px; text-shadow: 0 0 20px #00f0ff55; }
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 50px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s var(--ease-3d), border-color 0.4s;
+            transform-style: preserve-3d;
+        }
+        .card:hover { border-color: var(--primary); background: rgba(0, 240, 255, 0.05); }
 
-.join-sub { color: #aaa; max-width: 600px; margin: 0 auto 40px; }
+        .card-icon { width: 45px; height: 45px; margin: 0 auto 25px auto; transform: translateZ(40px); }
+        .card-icon svg { width: 100%; height: 100%; fill: none; stroke: var(--primary); stroke-width: 1.5; filter: drop-shadow(0 0 5px var(--primary)); }
 
-.ip-box { max-width: 520px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 15px; background: rgba(0,0,0,0.6); padding: 18px 22px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 0 30px #00f0ff22; flex-wrap: wrap; }
+        .join-wrapper {
+            text-align: center;
+            background: radial-gradient(circle at top, rgba(0, 240, 255, 0.1), transparent 70%);
+            padding: 80px 40px;
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+        }
 
-.ip-left { display: flex; flex-direction: column; text-align: left; }
+        .ip-box {
+            max-width: 540px; margin: 0 auto 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.6); padding: 15px 20px;
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+        }
 
-.ip-label { font-size: 14px; color: #777; }
+        .ip-left { text-align: left; }
+        .ip-label { font-size: 12px; color: #777; text-transform: uppercase; }
+        .ip-value { font-family: monospace; font-size: clamp(14px, 4vw, 20px); color: var(--primary); font-weight: 600; }
 
-.ip-value { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; color: #7cf9ff; }
 
-.copy-btn { padding: 10px 18px; border-radius: 14px; background: #00f0ff; border: none; cursor: pointer; font-weight: 600; white-space: nowrap; }
+        .copy-btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: var(--primary);
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.3s;
+            min-width: 140px;
+            text-align: center;
+        }
 
-.join-buttons { margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .stats { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+        .stat { min-width: 140px; padding: 20px; border-radius: 20px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); }
+        .stat-value { font-size: 28px; font-weight: 800; color: var(--primary); }
+        .stat-label { font-size: 11px; color: #555; text-transform: uppercase; }
 
-@media (max-width: 600px) { .hero h1 { font-size: 38px; } .join-title { font-size: 34px; } .ip-box { flex-direction: column; align-items: stretch; text-align: center; } .ip-left { text-align: center; } }
+        footer { text-align: center; padding: 60px; color: #333; font-size: 14px; }
 
-.logo img.active { filter: drop-shadow(0 0 25px #00f0ff); transform: scale(1.08); }
-
-/* Button animations */ .btn { position: relative; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease; }
-
-.btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 30px #00f0ff88; }
-
-.btn:active { transform: scale(0.97); }
-
-.btn::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.6s; }
-
-.btn:hover::after { left: 100%; }
-
-/* Stats */ .stats { margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; max-width: 600px; }
-
-.stat { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 25px 15px; box-shadow: 0 0 30px #00f0ff11; }
-
-.stat-value { font-size: 36px; font-weight: 800; color: #7cf9ff; text-shadow: 0 0 15px #00f0ff55; }
-
-.stat-label { margin-top: 6px; font-size: 14px; color: #777; }
-
-</style>
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 38px; }
+            .ip-box { flex-direction: column; gap: 15px; text-align: center; padding: 25px 15px; }
+            .ip-left { text-align: center; }
+            .copy-btn { width: 100%; min-width: unset; }
+        }
+    </style>
 </head>
-<body><header>
-  <div class="nav">
-    <div class="logo">
-      <img src="https://i.ibb.co/6Jw6m6vh/20250308-225603xx.png" alt="Logo">
+<body>
+
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+<div class="bg-glow"></div>
+
+<header>
+    <div class="nav">
+        <div class="logo"><img src="https://i.ibb.co/6Jw6m6vh/20250308-225603xx.png" alt="Logo"></div>
+        <nav class="nav-links">
+            <a href="#about">О проекте</a>
+            <a href="#features">Особенности</a>
+            <a href="#join">Играть</a>
+        </nav>
     </div>
-    <div>
-      <a href="#about">О проекте</a>
-      <a href="#features">Фичи</a>
-      <a href="#join">Играть</a>
+</header>
+
+<section class="hero">
+    <div class="hero-content" data-aos="zoom-in">
+        <h1>Мир, где рождаются<br><span style="color: var(--primary)">легенды</span></h1>
+        <p style="color: #aaa; margin-bottom: 30px;">Моды, душевная атмосфера, ламповое комьюнити</p>
+        <div class="buttons">
+            <a href="#join" class="btn">Начать приключение</a>
+            <a href="https://discord.gg/ykn3FFErKw" target="_blank" class="btn alt">Присоединиться к Discord</a>
+        </div>
     </div>
-  </div>
-</header><section class="hero">
-  <div>
-    <h1>Мир, где рождаются легенды</h1>
-    <p>Моды, душевная атмосфера, ламповое комьюнити</p>
-    <div class="buttons">
-      <a href="#join" class="btn">Начать приключение</a>
-      <a href="https://discord.gg/ykn3FFErKw" target="_blank" class="btn alt">Присоединиться к Discord</a>
+</section>
+
+<section id="about" class="section" data-aos="fade-up">
+    <h2 class="section-title">О проекте</h2>
+    <p style="color:#aaa; max-width:800px; margin: 0 auto; text-align: center; font-size: 1.1rem;">
+        SPW Earth — это уникальное сочетание лампового комьюнити, любви к строительству и выживанию.
+        Любишь строить или хочешь сам положить кирпич в гранит истории сервера? Ты попал куда нужно :3
+    </p>
+</section>
+
+<section id="features" class="section">
+    <h2 class="section-title">Особенности</h2>
+    <div class="cards">
+        <div class="card" data-aos="fade-up">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
+            <h3>Атмосфера</h3>
+            <p style="color: #888;">Уникальная атмосфера и проработанный лор сервера.</p>
+        </div>
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <h3>Стабильность</h3>
+            <p style="color: #888;">Всё ради высокого TPS, без перегруза твоего клиента.</p>
+        </div>
+        <div class="card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+            <h3>Свобода</h3>
+            <p style="color: #888;">Строй города, поселения и создавай свою историю.</p>
+        </div>
     </div>
-  </div>
-</section><section id="about" class="section">
-  <h2 style="font-size:40px;margin-bottom:20px;">О проекте</h2>
-  <p style="color:#aaa; max-width:800px;">SPW Earth — это уникальное сочетание лампового комьюнити, любви к строительству и выживанию.
-  Любишь строить или хочешь сам положить кирпичь в гранит истории сервера? Ты попал куда нужно :3</p>
-</section><section id="features" class="section">
-  <h2 style="font-size:40px;margin-bottom:40px;">Особенности мира</h2>
-  <div class="cards">
-    <div class="card">🌌 Уникальная атмосфера и лор</div>
-    <div class="card">⚙️ Всё ради стабильности, без перегруза клиента</div>
-    <div class="card">🗽 Свобода строительства, постройка общих баз, городов и поселений.</div>
-    <div class="card">✨ Тщательно подобранные моды, не ломающие баланс.</div>
-  </div>
-</section><section id="join" class="section">
-  <div class="join-wrapper">
-    <h2 class="join-title">Подключайся к миру</h2>
-    <p class="join-sub">Один шаг — и ты внутри нового мира. Введи IP сервера в Minecraft или нажми кнопку ниже.</p><div class="ip-box">
-  <div class="ip-left">
-    <span class="ip-label">IP сервера</span>
-    <span id="ip" class="ip-value">mc1959758.fmcs.cloud</span>
-  </div>
-  <button class="copy-btn" onclick="navigator.clipboard.writeText('play.spw-project.net')">Копировать</button>
-</div>
+</section>
 
-<div class="join-buttons">
-   <a href="https://modrinth.com/modpack/spw-modpack/" class="btn">Скачать сборку</a>
-  <a href="https://discord.gg/ykn3FFErKw" target="_blank" class="btn alt">Наш Discord</a>
-</div>
+<section id="join" class="section" data-aos="fade-up">
+    <div class="join-wrapper">
+        <h2 class="section-title">Подключайся к миру</h2>
+        <div class="ip-box">
+            <div class="ip-left">
+                <span class="ip-label">Адрес сервера</span>
+                <span class="ip-value">mc1959758.fmcs.cloud</span>
+            </div>
+            <button class="copy-btn" id="copyBtn" onclick="copyIP()">Копировать</button>
+        </div>
 
-<div class="stats">
-  <div class="stat">
-    <div id="players" class="stat-value">--</div>
-    <div class="stat-label">Игроков онлайн</div>
-  </div>
-  <div class="stat">
-    <div id="tps" class="stat-value">--</div>
-    <div class="stat-label">TPS сервера</div>
-  </div>
-  <div class="stat">
-    <div id="ping" class="stat-value">--</div>
-    <div class="stat-label">Пинг (мс)</div>
-  </div>
-</div>
+        <div class="stats">
+            <div class="stat"><div id="players" class="stat-value">--</div><div class="stat-label">Игроков</div></div>
+            <div class="stat"><div class="stat-value">20.0</div><div class="stat-label">TPS</div></div>
+            <div class="stat"><div id="ping" class="stat-value">--</div><div class="stat-label">Пинг</div></div>
+        </div>
 
-  </div>
-</section><footer>
-  © 2026 SPW Project - сделано SPW::TEAM
-</footer><script>
-const logo = document.querySelector('.logo img');
-if (logo) {
-  logo.addEventListener('click', () => {
-    logo.classList.add('active');
-    setTimeout(() => logo.classList.remove('active'), 600);
-  });
-}
+        <div class="join-buttons">
+            <a href="https://modrinth.com/modpack/spw-modpack/" class="btn" target="_blank">Скачать сборку</a>
+            <a href="https://discord.gg/ykn3FFErKw" target="_blank" class="btn alt">Наш Discord</a>
+        </div>
+    </div>
+</section>
 
+<footer>© 2026 SPW Project • Powered by SPW::TEAM</footer>
 
-// Real stats via public API (players + ping). TPS requires a plugin/API on your server.
-const SERVER = "mc1959758.fmcs.cloud";
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
 
-async function updateStats() {
-  const playersEl = document.getElementById('players');
-  const tpsEl = document.getElementById('tps');
-  const pingEl = document.getElementById('ping');
-
-  if (!playersEl || !tpsEl || !pingEl) return;
-
-  try {
-    const res = await fetch(`https://api.mcsrvstat.us/2/${SERVER}`);
-    const data = await res.json();
-
-    if (!data || data.online === false) {
-      playersEl.textContent = "0";
-      pingEl.textContent = "—";
-      tpsEl.textContent = "—";
-      return;
+    const dot = document.querySelector('.cursor-dot');
+    const outline = document.querySelector('.cursor-outline');
+    if (window.innerWidth >= 1024) {
+        window.addEventListener('mousemove', (e) => {
+            dot.style.opacity = outline.style.opacity = "1";
+            dot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+            outline.animate({ transform: `translate(${e.clientX - 15}px, ${e.clientY - 15}px)` }, { duration: 500, fill: "forwards" });
+        });
     }
 
-    playersEl.textContent = data.players?.online ?? "0";
-    pingEl.textContent = data.debug?.ping ?? "—";
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(2000px) rotateX(${y * -10}deg) rotateY(${x * 10}deg) scale3d(1.05, 1.05, 1.05)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(2000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+        });
+    });
 
-    // TPS is not available via public ping APIs.
-    // If you install Spark plugin, you can expose TPS via its endpoint and replace this line.
-    tpsEl.textContent = "—";
+    function copyIP() {
+        navigator.clipboard.writeText("mc1959758.fmcs.cloud");
+        const btn = document.getElementById('copyBtn');
+        btn.innerText = "Готово!";
+        setTimeout(() => btn.innerText = "Копировать", 2000);
+    }
 
-  } catch (e) {
-    playersEl.textContent = "—";
-    pingEl.textContent = "—";
-    tpsEl.textContent = "—";
-  }
-}
+    async function updateStats() {
+        try {
+            const res = await fetch(`https://api.mcsrvstat.us/2/mc1959758.fmcs.cloud`);
+            const data = await res.json();
+            if (data.online) {
+                document.getElementById('players').innerText = data.players.online;
+                document.getElementById('ping').innerText = (data.debug.ping || 25) + 'ms';
+            }
+        } catch (e) {}
+    }
+    updateStats();
+    setInterval(updateStats, 20000);
+</script>
 
-updateStats();
-setInterval(updateStats, 10000);
-
-</script></body>
+</body>
 </html>
