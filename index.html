@@ -320,7 +320,7 @@
     });
 
     function copyIP() {
-        navigator.clipboard.writeText("mc1959758.fmcs.cloud");
+        navigator.clipboard.writeText("mc2182964.fmcs.cloud");
         const btn = document.getElementById('copyBtn');
         btn.innerText = "Готово!";
         setTimeout(() => btn.innerText = "Копировать", 2000);
@@ -328,7 +328,7 @@
 
     async function updateStats() {
         try {
-            const res = await fetch(`https://api.mcsrvstat.us/2/mc1959758.fmcs.cloud`);
+            const res = await fetch(`https://api.mcsrvstat.us/2/mc2182964.fmcs.cloud`);
             const data = await res.json();
             if (data.online) {
                 document.getElementById('players').innerText = data.players.online;
